@@ -17,18 +17,21 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
       font-family: Inter, system-ui, sans-serif;
       background: radial-gradient(circle at top, #d5f0f9 0%, #bedee8 35%, #accad2 100%);
       color: var(--text);
       display: flex;
       justify-content: center;
-      padding: 24px;
+      padding: 12px;
+      overflow: hidden;
     }
     .page {
       width: min(1180px, 100%);
+      height: 100%;
       display: grid;
-      gap: 24px;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
     }
     header {
       text-align: center;
@@ -44,38 +47,36 @@
       text-transform: uppercase;
       box-shadow: 0 18px 40px rgba(18, 52, 76, 0.24);
     }
-    .subtitle {
-      margin: 18px auto 0;
-      max-width: 760px;
-      color: #334155;
-      font-size: 1rem;
-      line-height: 1.8;
-    }
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 430px);
-      gap: 24px;
-      align-items: start;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 12px;
+      height: 100%;
+      overflow: hidden;
     }
     .board-frame {
-      max-width: 680px;
-      margin: 0 auto;
+      height: 100%;
       background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(233,244,249,0.95));
-      border: 12px solid #AED9EB;
-      border-radius: 40px;
-      padding: 20px;
-      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.18);
+      border: 8px solid #AED9EB;
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.18);
+      display: flex;
+      flex-direction: column;
     }
     .board-grid {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
+      gap: 4px;
+      flex: 1;
+      aspect-ratio: 1;
+      max-height: 100%;
     }
     .cell {
-      min-height: 90px;
-      border-radius: 20px;
+      min-height: 60px;
+      border-radius: 12px;
       position: relative;
-      padding: 8px;
+      padding: 4px;
       overflow: hidden;
       border: 2px solid transparent;
       display: grid;
@@ -129,14 +130,16 @@
     .marker.p2 { background: #2563eb; }
     .panel-list {
       display: grid;
-      gap: 18px;
+      gap: 8px;
+      height: 100%;
+      overflow-y: auto;
     }
     .panel {
       background: rgba(255,255,255,0.88);
-      border-radius: 24px;
+      border-radius: 16px;
       border: 1px solid rgba(15, 23, 42, 0.08);
-      padding: 20px;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+      padding: 12px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
     }
     .panel h2 {
       margin: 0 0 14px;
@@ -145,7 +148,7 @@
     }
     .stats {
       display: grid;
-      gap: 12px;
+      gap: 8px;
     }
     .stat-box {
       background: var(--light);
@@ -160,8 +163,8 @@
     }
     .name-row {
       display: grid;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
     .name-input {
       display: flex;
@@ -189,11 +192,15 @@
     .button { width: 100%; border: none; border-radius: 18px; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; font-size: 1rem; font-weight: 700; padding: 16px; cursor: pointer; transition: transform 0.18s ease, filter 0.18s ease; }
     .button:hover { filter: brightness(1.05); transform: translateY(-1px); }
     .button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    .log { max-height: 320px; overflow-y: auto; display: grid; gap: 12px; padding-right: 4px; }
+    .log { max-height: 200px; overflow-y: auto; display: grid; gap: 8px; padding-right: 4px; }
     .log-entry { background: #eaf7ff; color: #0f172a; padding: 12px 14px; border-radius: 16px; border: 1px solid rgba(15,23,42,0.08); }
     .modal-backdrop { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(15,23,42,0.75); z-index: 50; padding: 24px; }
     .modal { width: min(520px, 100%); border-radius: 24px; background: white; padding: 24px; box-shadow: 0 30px 70px rgba(15,23,42,0.22); border: 1px solid rgba(15,23,42,0.08); }
     .modal h3 { margin: 0 0 16px; font-size: 1.2rem; color: #0f172a; }
+      .page { grid-template-rows: auto auto; height: auto; overflow: auto; }
+      .layout { height: auto; }
+      .board-frame { height: auto; }
+      .board-grid { aspect-ratio: auto; }
     .modal p { margin: 0 0 18px; color: #334155; line-height: 1.7; }
     .modal input { width: 100%; padding: 14px 16px; border-radius: 16px; border: 1px solid #cbd5e1; background: #f8fafc; color: #0f172a; margin-bottom: 18px; }
     .modal-buttons { display: grid; gap: 12px; }
@@ -201,6 +208,10 @@
     @media (max-width: 900px) {
       .board-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .layout { grid-template-columns: 1fr; }
+      .page { grid-template-rows: auto auto; height: auto; overflow: auto; }
+      .layout { height: auto; }
+      .board-frame { height: auto; }
+      .board-grid { aspect-ratio: auto; }
     }
   </style>
 </head>
@@ -208,7 +219,7 @@
   <div class="page">
     <header>
       <div class="title">PARABOOM</div>
-      <p class="subtitle">Desain game board seperti jalur ular tangga dengan kotak BOOM, TANTANGAN, MERIAM, PEROSOTAN, dan LAMPU FAKTA.</p>
+    </header>
     </header>
     <div class="layout">
       <section class="board-frame">
